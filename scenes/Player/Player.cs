@@ -9,9 +9,14 @@ public partial class Player : CharacterBody3D
 	public float sensitvity = 0.01f;
 	[Export] public float Speed = 5.5f;
 	public Camera3D camera;
+	public Marker3D marker;
+	[Export] public Timer timer;
+	[Export] public PackedScene bullet;
 	public override void _Ready()
 	{
 		camera = GetNode<Camera3D>("Camera3D");
+		marker = GetNode<Marker3D>("Camera3D/Marker3D");
+
 	}
 
 	public override void _UnhandledInput(InputEvent evt)
@@ -48,10 +53,25 @@ public partial class Player : CharacterBody3D
 		else if (Input.IsActionJustReleased("jump") && velo.Y > 0.0f)
 			velo.Y = 0.0f;
 
+		//ATIRANDO
+		if (Input.IsActionPressed("shoot") && timer.IsStopped())
+		{
+			ShootBullet();
+		}
 
 		//APLICANDO OS MOVIMENTOS
 		Velocity = velo;
 		MoveAndSlide();
 	}
+
+	public void ShootBullet()
+	{
+		timer.Start();
+		Node3D novaInstancia = (Node3D)bullet.Instantiate();
+		novaInstancia.GlobalTransform = marker.GlobalTransform;
+		AddChild(novaInstancia);
+
+	}
+
 
 }
