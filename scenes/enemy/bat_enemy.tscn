@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyisdg8uwjry3"]
+
+[ext_resource type="Script" uid="uid://88ix77f2b6sg" path="res://scenes/enemy/BatEnemy.cs" id="1_ggr8l"]
+[ext_resource type="PackedScene" uid="uid://cj1ipy1djqat5" path="res://scenes/enemy/bat_model.tscn" id="1_ow412"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ggr8l"]
+radius = 0.361677
+
+[node name="BatEnemy" type="RigidBody3D"]
+gravity_scale = 0.0
+script = ExtResource("1_ggr8l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ggr8l")
+
+[node name="bat_model" parent="." instance=ExtResource("1_ow412")]
